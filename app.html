@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>My Video App</title>
+		<script src="jquery-2.1.4.min.js"></script>
+
+		<style>
+			.selected {
+
+				border: dotted 1px;
+				padding: 3px;
+				border-radius: 10px;
+			}
+
+			#video-box {
+
+				margin: 20px;
+				padding: 30px;
+				border: dotted 1px;
+				border-radius: 40px;
+			}
+
+			#video-view {
+
+				margin: 20px;
+				margin: 20px;
+				padding: 30px;
+				border: dotted 1px;
+				text-align: center;
+				border-radius: 40px;
+			}
+
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id="video-view">
+			<video id="video" controls autoplay></video>
+		</div>
+		
+
+		
+		<div id="video-box">
+			<input type="file" id="source-files" multiple="multiple" accept="video/*" />
+
+		</div>
+		<script>
+			$("#source-files").change(function() {
+
+				var i = 0;
+
+				for (i; i < ($("#source-files")[0].files).length; i++) {
+
+					var URL = window.URL || window.webkitURL;
+
+					var url = URL.createObjectURL(($("#source-files"))[0].files[i]);
+
+					var name = ($("#source-files"))[0].files[i].name
+					//console.log(url);
+
+					$("<p data-blob=\"" + url + "\">" + name + "</p>").appendTo($("#video-box"));
+
+
+				}
+
+				//var URL = window.URL || window.webkitURL;
+
+				//var url = URL.createObjectURL(($("#source-files"))[0].files[1]);
+				//var url = ($("#source-files")).length;
+
+				//($("#source-files"))[0].files[0]
+				//console.log(($("#source-files")[0].files).length);
+				//$("#video").attr("src", url);
+				//console.log(url);
+
+
+				$("#source-files").val("");
+			});
+
+			$("#video-box").on('dblclick', 'p', function(){
+
+				
+				$(video).attr("src", $(this).attr("data-blob"));
+				
+
+			});	
+
+			$("#video-box").on('click', 'p', function(){
+
+				$(this).addClass('selected');
+				$("p").not(this).removeClass('selected');
+
+			});	
+		</script>
+
+	</body>
+
+
+</html>
